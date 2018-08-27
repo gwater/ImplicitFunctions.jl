@@ -1,7 +1,7 @@
 # ImplicitFunctions.jl
 
 Implements a simple Iterator to track continuous branches of implicit functions
-by combining ForwardDiff.jl and NLsolve.jl.
+by combining ForwardDiff.jl, Tensors.jl, and NLsolve.jl.
 
 Input functions should be of the form $g(\mathbf{u},p)=0$. Given a starting
 point $(\mathbf{u}_0,p_0)$ the Iterator then produces a series of points on
@@ -10,9 +10,10 @@ implicit curve and then correcting it using Newton's method.
 
 The current implementation is very naive and likely produces some unexpected
 behavior; especially at bifurcation points. Furthermore, it requires functions
-implemented in pure julia, in order to calculate Jacobians using ForwardDiff.jl.
-Currently, the algorithm is fixed-step-only (in $p$) which means only branches
-monotonical in $p$ can be mapped.
+implemented in pure julia, with `length(x) == length(g(x, p)) <= 3`, in order
+to calculate Jacobians using Tensors.jl and ForwardDiff.jl. Currently, the
+algorithm is fixed-step-only (in $p$) which means only branches monotonical in
+$p$ can be mapped.
 
 ## Usage
 
@@ -40,3 +41,7 @@ iter = ImplicitIterator(g, u0, p0, dp, debug = true)
 
 Please note, because the Iterator interface has changed between julia version
 0.6 and 0.7 please use the [julia-0.6](https://github.com/gwater/ImplicitFunctions.jl/tree/julia-0.6) branch for older projects.
+
+## See also
+
+Also check out [ImplicitEquations.jl](https://github.com/jverzani/ImplicitEquations.jl) which uses different numerical approach to graphically display implicitly defined regions.
