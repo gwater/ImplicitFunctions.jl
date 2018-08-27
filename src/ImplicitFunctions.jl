@@ -4,10 +4,10 @@ using ForwardDiff
 using Tensors
 using NLsolve
 
-import Base: start, next, done, iteratorsize, iteratoreltype, eltype
+import Base: start, next, done, iteratorsize, eltype
 
 export ImplicitIterator
-export start, next, done, iteratorsize, iteratoreltype, eltype
+export start, next, done, iteratorsize, eltype
 
 jacobian(f, x::AbstractVector) =
     Tensors.gradient(x -> Vec{length(x)}(f(x)), Vec{length(x)}(x))
@@ -41,8 +41,7 @@ ImplicitIterator(f::F, x0::X, p0::P, dp::P = 0.1; debug::Bool = false) where
     {X, P, F} = ImplicitIterator{X, P, debug, F}(f, x0, p0, dp)
 
 iteratorsize(::Type{I}) where {I <: ImplicitIterator} = Base.SizeUnknown()
-iteratoreltype(::Type{I}) where {I <: ImplicitIterator} = Base.HasEltype()
-eltype(iter::ImplicitIterator{X, P}) where {X, P} = Tuple{X, P}
+eltype(::Type{I}) where {X, P, I <: ImplicitIterator{X, P}} = Tuple{X, P}
 
 function start(iter::ImplicitIterator)
     return iter.x0, iter.p0
