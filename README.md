@@ -12,7 +12,7 @@ The current implementation is very naive and likely produces some unexpected
 behavior; especially at bifurcation points. Furthermore, it requires functions
 implemented in pure julia, with `length(x) == length(g(x, p)) <= 3`, in order
 to calculate Jacobians using Tensors.jl and ForwardDiff.jl. Currently, the
-algorithm is fixed-step-only (in <img src="/tex/2ec6e630f199f589a2402fdf3e0289d5.svg?invert_in_darkmode&sanitize=true" align=middle width=8.270567249999992pt height=14.15524440000002pt/>) which means only branches monotonical in
+algorithm is fixed-step-only (in <img src="/tex/2ec6e630f199f589a2402fdf3e0289d5.svg?invert_in_darkmode&sanitize=true" align=middle width=8.270567249999992pt height=14.15524440000002pt/>) which means only branches monotonic w.r.t.
 <img src="/tex/2ec6e630f199f589a2402fdf3e0289d5.svg?invert_in_darkmode&sanitize=true" align=middle width=8.270567249999992pt height=14.15524440000002pt/> can be mapped.
 
 ## Usage
