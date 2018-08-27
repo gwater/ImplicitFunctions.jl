@@ -1,7 +1,7 @@
 name = "ImplicitFunctions"
 uuid = "48076dc2-a9d8-11e8-0265-512862ae2d36"
 authors = ["Josua Grawitter <josua.grawitter@campus.tu-berlin.de>"]
-version = "0.1.0"
+version = "0.2.0"
 
 [deps]
 ForwardDiff = "f6369f11-7733-5829-9624-2563aa707210"
