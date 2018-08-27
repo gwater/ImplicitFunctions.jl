@@ -17,7 +17,7 @@ jacobian(f, x::Real) = ForwardDiff.derivative(f, x)
 function arc_approx(f, x0, p0::P, dp::P, ::Type{Val{DEBUG}} = Val{false}) where {P <: Real, DEBUG}
     # tangent vector
     Jx = jacobian(x -> f(x, p0), x0)
-    DEBUG && info(J)
+    DEBUG && info(Jx)
     # iszero(det(Jx)) % throw some exception
     dxdp = -Jx \ jacobian(p -> f(x0, p), p0)
     return x0 .+ dxdp * dp, p0 + dp
