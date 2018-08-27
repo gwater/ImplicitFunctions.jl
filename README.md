@@ -1,7 +1,7 @@
 # ImplicitFunctions.jl
 
 Implements a simple Iterator to track continuous branches of implicit functions
-by combining ForwardDiff.jl and NLsolve.jl.
+by combining ForwardDiff.jl, Tensors.jl, and NLsolve.jl.
 
 Input functions should be of the form <img src="/tex/e363ebb8835aa265961720caf0517f78.svg?invert_in_darkmode&sanitize=true" align=middle width=77.43130889999999pt height=24.65753399999998pt/>. Given a starting
 point <img src="/tex/a6ee443b8b9ffeb5de0c462c42d96036.svg?invert_in_darkmode&sanitize=true" align=middle width=53.61303089999999pt height=24.65753399999998pt/> the Iterator then produces a series of points on
@@ -10,9 +10,10 @@ implicit curve and then correcting it using Newton's method.
 
 The current implementation is very naive and likely produces some unexpected
 behavior; especially at bifurcation points. Furthermore, it requires functions
-implemented in pure julia, in order to calculate Jacobians using ForwardDiff.jl.
-Currently, the algorithm is fixed-step-only (in <img src="/tex/2ec6e630f199f589a2402fdf3e0289d5.svg?invert_in_darkmode&sanitize=true" align=middle width=8.270567249999992pt height=14.15524440000002pt/>) which means only branches
-monotonical in <img src="/tex/2ec6e630f199f589a2402fdf3e0289d5.svg?invert_in_darkmode&sanitize=true" align=middle width=8.270567249999992pt height=14.15524440000002pt/> can be mapped.
+implemented in pure julia, with `length(x) == length(g(x, p)) <= 3`, in order
+to calculate Jacobians using Tensors.jl and ForwardDiff.jl. Currently, the
+algorithm is fixed-step-only (in <img src="/tex/2ec6e630f199f589a2402fdf3e0289d5.svg?invert_in_darkmode&sanitize=true" align=middle width=8.270567249999992pt height=14.15524440000002pt/>) which means only branches monotonical in
+<img src="/tex/2ec6e630f199f589a2402fdf3e0289d5.svg?invert_in_darkmode&sanitize=true" align=middle width=8.270567249999992pt height=14.15524440000002pt/> can be mapped.
 
 ## Usage
 
@@ -40,3 +41,7 @@ iter = ImplicitIterator(g, u0, p0, dp, debug = true)
 
 Please note, because the Iterator interface has changed between julia version
 0.6 and 0.7 please use the [julia-0.6](https://github.com/gwater/ImplicitFunctions.jl/tree/julia-0.6) branch for older projects.
+
+## See also
+
+Also check out [ImplicitEquations.jl](https://github.com/jverzani/ImplicitEquations.jl) which uses different numerical approach to graphically display implicitly defined regions.
