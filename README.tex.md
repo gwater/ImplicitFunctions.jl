@@ -35,3 +35,8 @@ To get debugging information use:
 ```julia
 iter = ImplicitIterator(g, u0, p0, dp, debug = true)
 ```
+
+## Versions
+
+Please note, because the Iterator interface has changed between julia version
+0.6 and 0.7 please use the [julia-0.6](https://github.com/gwater/ImplicitFunctions.jl/tree/julia-0.6) branch for older projects.
