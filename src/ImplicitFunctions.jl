@@ -1,8 +1,11 @@
 module ImplicitFunctions
 
+include("vector_gradient.jl")
+using .VectorGradient
+
 using ForwardDiff
-using Tensors
 using NLsolve
+using StaticArrays
 
 import Base: iterate, eltype, IteratorSize
 
@@ -10,7 +13,7 @@ export ImplicitIterator
 export iterate, eltype, IteratorSize
 
 jacobian(f, x::AbstractVector) =
-    Tensors.gradient(x -> Vec{length(x)}(f(x)), Vec{length(x)}(x))
+    gradient(x -> SVector{length(x)}(f(x)), SVector{length(x)}(x))
 jacobian(f, x::Real) = ForwardDiff.derivative(f, x)
 
 # https://math.stackexchange.com/questions/1415898/pseudo-arclength-continuation-scheme
